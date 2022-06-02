@@ -1,0 +1,10 @@
+# Copy this file to ~/.ssh/config
+# Requires our VPN
+Host ml
+HostName machine-learning.di.fc.ul.pt
+User amfonseca@fc.ul.pt
+
+
+# ssh ml
+# scp . ml:gpu
+# rsync -av . ml:gpu
