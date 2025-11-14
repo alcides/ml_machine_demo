@@ -80,8 +80,10 @@ You always need to submit a bash job, where different parameters are set.
 #SBATCH --time=00:02:00              # Time limit hrs:min:sec
 #SBATCH --output=parallel_%j.log     # Standard output and error log
 #SBATCH --gres=gpu:1
+#SBATCH --nodelist=opel
 
 #SBATCH --array=0-59                # iterate values between 0 and 59, inclusive
+
 
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
@@ -98,6 +100,7 @@ SLURM accepts a few flags (here in comments) that set some parameters.
 * time defines a timeout for the job to run. The cluster will probably also have a global timeout (typically 24 or 48h).
 * output defines where the stdout will be redirected. Since you do not have access to the machine that will run this, you need to read it later, after the job finishes. If you want (fake) synchronous execution, look for the `srun` command.
 * gres defines how many GPUs will be allocated for this job. Note that if you do not define this, your software will have access to the GPU and can use it. It means that your program will run at the same time as others (who carefully set this parameter) and crash both yours and theirs programs. Please set this flag everytime GPUs are used! It is very important.
+* nodelist allows you to define which machine will run the job. If that does not matter to you, remove this line and the first available one will run it.
 * array sets how many tasks you want (inclusive on both ends). 0-59 will crease 60 jobs. Since in this example we want to best two alternative models (A and B) each 30 times, we define that we want 60 parallel executions, and then we use the $SLURM_ARRAY_TASK_ID variable to obtain the 0-29 and the 0-1 values to pass as parameters.
 
 
@@ -105,3 +108,6 @@ SLURM accepts a few flags (here in comments) that set some parameters.
 
 * If you want to run long experiments, implement a snashot mechanism that saves backups of the results, in the case the machine crashes. Also implement a restore functionality so that you can submit a 3-month job as 24h smaller jobs that continue from the previous results. This way, other people can still use the cluster between your smaller jobs. Do not be an hoarder of resources.
 * UV is a great tool for running different python versions with weird dependencies.
+* If you want to see the status of the GPUs in each machine: `srun -w opel nvidia-smi`
+* `sinfo` will give you the status of the cluster
+* `squeue` will show you the status of the queue

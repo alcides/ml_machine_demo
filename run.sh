@@ -7,6 +7,7 @@
 #SBATCH --time=00:02:00              # Time limit hrs:min:sec
 #SBATCH --output=parallel_%j.log     # Standard output and error log
 #SBATCH --gres=gpu:1
+#SBATCH --nodelist=opel
 
 #SBATCH --array=0-59                # iterate values between 0 and 59, inclusive
 
