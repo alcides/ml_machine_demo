@@ -29,12 +29,19 @@ def evaluate(model, seed=0):
                 metrics=['accuracy'])
 
     model.fit(x_train, y_train, epochs=1)
-    r = model.evaluate(x_test, y_test)
-    print("Performance:", r[0])
+    return model.evaluate(x_test, y_test)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
+    from optparse import OptionParser
+    parser = OptionParser()
+    parser.add_option("-s", "--seed", dest="seed", type="int")
+    parser.add_option("-m", "--model", dest="model", type="int")
+
+    (options, args) = parser.parse_args()
+
     models = [get_model_a(), get_model_b()]
-    for i in range(30):
-        for m in models:
-            evaluate(m, i)
+    seed = options.seed
+    model = models[options.model]
+    v = evaluate(model, seed)
+    print(seed, ";", options.model, ";", ";".join([ str(x) for x in v ]))

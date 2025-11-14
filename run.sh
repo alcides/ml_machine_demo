@@ -10,5 +10,11 @@
 
 #SBATCH --array=0-59                # iterate values between 0 and 59, inclusive
 
-bash setup.sh
-python3 example.py -s $(expr $SLURM_ARRAY_TASK_ID / 2) -m $(expr $SLURM_ARRAY_TASK_ID % 2)
+
+# Install UV
+
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+
+# Run the program with the two different models, 30 seeds each.
+uv run --with tensorflow python example.py -s $(expr $SLURM_ARRAY_TASK_ID / 2) -m $(expr $SLURM_ARRAY_TASK_ID % 2)
