@@ -8,24 +8,27 @@ The [Department of Informatics](https://www.di.fc.ul.pt) of [Faculdade de Ciênc
 The cluster uses SLURM to control the execution of jobs. Users log into "login-node" to submit jobs. Those jobs are queued in SLURM and are executed by the following nodes, whenever the necessary resources are available.
 
 ### Opel
-
+```
 2x AMD EPYC 7443 24-Core Processor (96 hyper-threads total)
 128GB RAM
 6x NVIDIA A30 (24GB VRAM)
+```
 
 ### Corsa
 
+```
 2x Intel(R) Xeon(R) Silver 4216 CPU @ 2.10GHz (64 hyper-threads total)
 128GB RAM
 2x NVIDIA Tesla T4 (16GB VRAM)
-
+```
 
 ## Software
 
+```
 OS: Ubuntu 24.04
 SLURM: 23.11
 CUDA: 12.0
-
+```
 
 # How to use the cluster
 
